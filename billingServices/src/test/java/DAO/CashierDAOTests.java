@@ -55,7 +55,7 @@ public class CashierDAOTests {
         Cashier result = cashierDAO.getCashierById(cashierId);
         assertNull(result, "Cashier should be deleted");
     }
-
+    
     @Test
     public void testGetAllCashiers() throws SQLException {
         System.out.println("getAllCashiers");

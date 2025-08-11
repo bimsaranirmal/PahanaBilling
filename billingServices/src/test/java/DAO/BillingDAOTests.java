@@ -29,7 +29,7 @@ public class BillingDAOTests {
         billingDAO = new BillingDAO();
         customerDAO = new CustomerDAO();
         // Create a test customer
-        Customer testCustomer = new Customer(0, "Test Customer", "Male", LocalDate.of(1990, 1, 1), "Test Address", "123456789V", "test@example.com", "0771234567", "ACC123", "Active", LocalDate.now(), LocalDate.now());
+        Customer testCustomer = new Customer(0, "Test Customer", "Male", LocalDate.of(1990, 1, 1), "Test Address", "1234567890V", "test@example.com", "0771234567", "ACC123", "Active", LocalDate.now(), LocalDate.now());
         testCustomerId = customerDAO.registerCustomer(testCustomer);
         assertTrue(testCustomerId > 0, "Failed to register test customer");
     }
@@ -54,7 +54,7 @@ public class BillingDAOTests {
         List<BillItem> billItems = new ArrayList<>();
         billItems.add(new BillItem(0, 1, 2, 10.0, 20.0)); 
         billItems.add(new BillItem(0, 2, 1, 15.0, 15.0)); 
-        Billing testBill = new Billing(0, "BILL-20250810-0001", testCustomerId, 35.0, billItems, 
+        Billing testBill = new Billing(0, "BILL-20250811-0001", testCustomerId, 35.0, billItems, 
                 LocalDate.now(), LocalDate.now());
 
         int billId = billingDAO.createBill(testBill);
@@ -62,7 +62,7 @@ public class BillingDAOTests {
 
         Billing savedBill = billingDAO.getBillById(billId);
         assertNotNull(savedBill, "Bill not saved in database");
-        assertEquals("BILL-20250810-0001", savedBill.getBillNo(), "Saved bill number mismatch");
+        assertEquals("BILL-20250811-0001", savedBill.getBillNo(), "Saved bill number mismatch");
         assertEquals(testCustomerId, savedBill.getCustomerId(), "Saved customer ID mismatch");
         assertEquals(35.0, savedBill.getTotalAmount(), 0.01, "Saved total amount mismatch");
         assertEquals(2, savedBill.getBillItems().size(), "Number of bill items mismatch");
@@ -81,14 +81,14 @@ public class BillingDAOTests {
         System.out.println("getBillById");
         List<BillItem> billItems = new ArrayList<>();
         billItems.add(new BillItem(0, 1, 2, 10.0, 20.0));
-        Billing testBill = new Billing(0, "BILL-20250810-0001", testCustomerId, 20.0, billItems,
+        Billing testBill = new Billing(0, "BILL-20250811-0001", testCustomerId, 20.0, billItems,
                 LocalDate.now(), LocalDate.now());
         int billId = billingDAO.createBill(testBill);
         assertTrue(billId > 0, "Failed to create test bill");
 
         Billing retrievedBill = billingDAO.getBillById(billId);
         assertNotNull(retrievedBill, "Bill not found");
-        assertEquals("BILL-20250810-0001", retrievedBill.getBillNo(), "Retrieved bill number mismatch");
+        assertEquals("BILL-20250811-0001", retrievedBill.getBillNo(), "Retrieved bill number mismatch");
         assertEquals(testCustomerId, retrievedBill.getCustomerId(), "Retrieved customer ID mismatch");
         assertEquals(20.0, retrievedBill.getTotalAmount(), 0.01, "Retrieved total amount mismatch");
         assertEquals(1, retrievedBill.getBillItems().size(), "Number of bill items mismatch");
@@ -101,7 +101,7 @@ public class BillingDAOTests {
         System.out.println("getBillsByCustomerId");
         List<BillItem> billItems = new ArrayList<>();
         billItems.add(new BillItem(0, 1, 2, 10.0, 20.0));
-        Billing testBill = new Billing(0, "BILL-20250810-0001", testCustomerId, 20.0, billItems,
+        Billing testBill = new Billing(0, "BILL-20250811-0001", testCustomerId, 20.0, billItems,
                 LocalDate.now(), LocalDate.now());
         int billId = billingDAO.createBill(testBill);
         assertTrue(billId > 0, "Failed to create test bill");
@@ -113,7 +113,7 @@ public class BillingDAOTests {
         for (Billing bill : bills) {
             if (bill.getId() == billId) {
                 found = true;
-                assertEquals("BILL-20250810-0001", bill.getBillNo(), "Bill number mismatch");
+                assertEquals("BILL-20250811-0001", bill.getBillNo(), "Bill number mismatch");
                 assertEquals(20.0, bill.getTotalAmount(), 0.01, "Total amount mismatch");
                 assertEquals(1, bill.getBillItems().size(), "Number of bill items mismatch");
             }
